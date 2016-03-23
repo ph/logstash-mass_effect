@@ -54,7 +54,7 @@ anything is obviously failing.
 **Make sure you are under JRUBY and start a TMUX session**
 
 ```
-sh scripts/publish_all_file > logs/20162101_14h00.log
+sh scripts/publish_all > logs/20162101_14h00.log
 ```
 
 Let it run, read the logs check for 1, which mean the shell script returned an error
