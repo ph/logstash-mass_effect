@@ -1,0 +1,23 @@
+cd tmp
+for file in $(ls)
+  do
+  cd $file
+  rbenv global jruby-1.7.20
+  bundle install &> /dev/null
+  echo "install $file $?"
+
+
+  bundle exec rake vendor &> /dev/null
+  echo "vendor $file $?"
+
+  bundle exec rspec &> /dev/null
+  echo "rspec $file $?"
+
+  if [ $? == 0 ]; then
+    bundle exec rake publish_gem &> /dev/null
+    echo "publish $file $?"
+    cd ..
+  else
+      echo "Not published: $file $?0"
+  fi
+done
