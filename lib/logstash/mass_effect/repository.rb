@@ -177,7 +177,7 @@ module LogStash
         puts "size after: #{repositories.size}"
 
         repositories.each do |repository|
-          repository = clone(repository[:git_url], File.join(target, repository[:name]))
+          repository = clone(repository[:clone_url], File.join(target, repository[:name]))
         end
       end
 
