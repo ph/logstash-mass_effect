@@ -1,5 +1,10 @@
     DEFAULT_PLUGINS = %w(
-      logstash-input-heartbeat
+logstash-mixin-aws
+logstash-mixin-http_client
+logstash-mixin-rabbitmq_connection
+logstash-mixin-zeromq
+logstash-patterns-core
+    logstash-input-heartbeat
       logstash-output-zeromq
       logstash-codec-collectd
       logstash-output-xmpp
@@ -15,7 +20,6 @@
       logstash-codec-msgpack
       logstash-codec-multiline
       logstash-codec-netflow
-      logstash-codec-oldlogstashjson
       logstash-codec-plain
       logstash-codec-rubydebug
       logstash-filter-anonymize
@@ -52,8 +56,10 @@
       logstash-input-generator
       logstash-input-graphite
       logstash-input-http
+      logstash-input-http_poller
       logstash-input-imap
       logstash-input-irc
+      logstash-input-jdbc
       logstash-input-log4j
       logstash-input-lumberjack
       logstash-input-pipe
@@ -71,10 +77,10 @@
       logstash-input-xmpp
       logstash-input-zeromq
       logstash-input-kafka
+      logstash-input-beats
       logstash-output-cloudwatch
       logstash-output-csv
       logstash-output-elasticsearch
-      logstash-output-elasticsearch_http
       logstash-output-email
       logstash-output-exec
       logstash-output-file
@@ -102,10 +108,6 @@
       logstash-output-tcp
       logstash-output-udp
       logstash-output-kafka
-      logstash-mixin-aws
-      logstash-mixin-http_client
-      logstash-mixin-rabbitmq_connection
-      logstash-patterns-core
     )
 
 

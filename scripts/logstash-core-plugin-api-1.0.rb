@@ -2,7 +2,7 @@ require_relative "helpers"
 
 def logstash_core(content)
   # s.add_runtime_dependency "logstash-core", '>= 1.4.0', '< 2.0.0'
-  content.gsub!(/add_runtime_dependency ("|')logstash-core("|').+/, 'add_runtime_dependency "logstash-core-plugin-api", "~> 1"')
+  content.gsub!(/add_runtime_dependency ("|')logstash-core("|').+/, 'add_runtime_dependency "logstash-core-plugin-api", "~> 1.0"')
 end
 
 def bump_version(file)
