@@ -4,7 +4,7 @@ def update_changelog(text)
   edit_matched_files("*/CHANGELOG.md") do |content|
     content.shift(text)
     version = content.read_version
-    content.shift("# #{version}\n")
+    content.shift("## #{version}\n")
     content.save
   end
 end
