@@ -1,7 +1,9 @@
+require 'pathname'
+
 TARGET_PATH = "./tmp"
 
-def update_changelog(text)
-  edit_matched_files("*/CHANGELOG.md") do |content|
+def update_changelog(text, match = "*/CHANGELOG.md")
+  edit_matched_files(match) do |content|
     content.shift(text)
     version = content.read_version
     content.shift("## #{version}\n")
@@ -14,7 +16,11 @@ end
 # handy for doing condition on the version of the specific plugin
 def edit_matched_files(*match, &block)
   match.each do |m|
-    path = File.join(File.expand_path(TARGET_PATH), m)
+    if Pathname.new(m).absolute?
+      path = m
+    else
+      path = File.join(File.expand_path(TARGET_PATH), m)
+    end
     puts "path: #{path}"
 
     Dir.glob(path).each do |file|
