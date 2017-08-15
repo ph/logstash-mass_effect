@@ -35,9 +35,13 @@ Dir.glob(File.join(File.expand_path('./tmp'), '**/*.gemspec')).each do |gemspec|
 
   begin
     content = File.read(gemspec)
+
+    # Add load path for the plugin
     $LOAD_PATH << File.join(File.dirname(gemspec), "lib")
-    p gemspec
+
+    # chdir so file paths are relative to the plugin dir.
     spec = Dir.chdir(File.dirname(gemspec)) do
+      # Execute the gemspec. We should get a Gem::Specification from this.
       eval(content)
     end
   rescue => e
@@ -50,7 +54,7 @@ Dir.glob(File.join(File.expand_path('./tmp'), '**/*.gemspec')).each do |gemspec|
 
   changelog_content = <<-CHANGELOG
 ## #{version}
-  - Fix some documentation issues"
+  - Fix some documentation issues
   CHANGELOG
 
   changelog_path = File.join(File.dirname(gemspec), "CHANGELOG.md")
