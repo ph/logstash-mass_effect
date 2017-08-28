@@ -2,6 +2,7 @@ require 'open3'
 require 'forwardable'
 require 'octokit'
 require 'rugged'
+require 'peach'
 require 'fileutils'
 require 'cabin'
 require 'gems'
@@ -131,16 +132,16 @@ module LogStash
       end
 
       def parallel_command(cmd)
-        Repository.local_repositories(target).each do |repository|
+        Repository.local_repositories(target).peach(4) do |repository|
           command(cmd, File.join(repository))
         end
       end
 
       def command(cmd, target)
         MassEffect.logger.info('running command', :cmd => cmd, :target => target)
-        Dir.chdir(target) do
-          puts system(cmd)
-        end
+        #Dir.chdir(target) do
+          puts system("cd '#{target}';" + cmd)
+        #end
       end
     end
 

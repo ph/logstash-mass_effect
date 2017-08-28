@@ -1,23 +1,52 @@
-cd tmp
-for file in $(ls)
-  do
-  cd $file
-  rbenv global jruby-1.7.20
-  bundle install &> /dev/null
-  echo "install $file $?"
+#!/bin/sh
 
+log="$PWD/output.log"
+echo "Writing command output to $log"
 
-  bundle exec rake vendor &> /dev/null
-  echo "vendor $file $?"
+quiet() {
+  (
+    echo "Running: $@"
+    "$@"
+  ) >> $log 2>&1
+}
 
-  bundle exec rspec &> /dev/null
-  echo "rspec $file $?"
+try() {
+  path="$1" 
+  shift
 
-  if [ $? == 0 ]; then
-    bundle exec rake publish_gem &> /dev/null
-    echo "publish $file $?"
-    cd ..
+  (
+    cd "$path"
+    quiet "$@"
+  )
+
+  status=$?
+  name="$(basename "$path")"
+  if [ $status -eq 0 ] ; then
+    echo "OK: $name $@"
   else
-      echo "Not published: $file $?0"
+    echo "FAIL: $name $@"
   fi
+  return $status
+}
+
+rbenv global jruby-1.7.26
+
+version="$(ruby --version)"
+if ! quiet ruby --version ; then
+  echo "No ruby executable found?"
+  exit 1
+fi
+
+if ! ruby --version | grep -q '^jruby ' ; then
+  echo "Ruby must be JRuby"
+  exit 1
+fi
+
+# We assume all plugins are checked out to 
+for path in $(ls -d tmp/*/); do
+  basename "$path"
+  try "$path" bundle install || continue
+  try "$path" bundle exec rake vendor || continue
+  try "$path" bundle exec rspec || continue
+  try "$path" bundle exec rake publish_gem
 done

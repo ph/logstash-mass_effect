@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Logstash::MassEffect::VERSION
   spec.authors       = ["Pier-Hugues Pellerin"]
   spec.email         = ["phpellerin@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{hello}
+  spec.description   = %q{hello world}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "cabin"
   spec.add_runtime_dependency "rugged"
   spec.add_runtime_dependency "gems"
+  spec.add_runtime_dependency "peach"
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "pry"
